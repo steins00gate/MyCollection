@@ -1,0 +1,48 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Agregar Artículo</ion-title>
+    <ion-progress-bar *ngIf="cargando" type="indeterminate"></ion-progress-bar>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form (ngSubmit)="onSubmit()" #articuloForm="ngForm" *ngIf="!agregadoConExito">
+
+    <ion-item>
+      <ion-label position="floating">Categoría</ion-label>
+      <ion-select [(ngModel)]="categoria" name="categoria" required>
+        <ion-select-option value="cartas">Cartas coleccionables</ion-select-option>
+        <ion-select-option value="figuras">Figuras</ion-select-option>
+        <ion-select-option value="libros">Libros</ion-select-option>
+        <ion-select-option value="monedas">Monedas</ion-select-option>
+        <ion-select-option value="comics">Comics</ion-select-option>
+        <ion-select-option value="videojuegos">Videojuegos</ion-select-option>
+        <ion-select-option value="consolas">Consolas</ion-select-option>
+        <ion-select-option value="autos">Autos de juguete</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Nombre del Objeto</ion-label>
+      <ion-input type="text" name="nombre" [(ngModel)]="nombre" required></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Adjuntar Imagen</ion-label>
+      <div class="file-input-container">
+        <input type="file" (change)="onFileSelected($event)" #inputFile style="display: none;" (change)="onFileSelected($event)">
+        <span *ngIf="imagen">{{ imagen.name }}</span> <!-- Muestra el nombre del archivo -->
+        <ion-button fill="outline" (click)="inputFile.click()" slot="end">
+          Elegir Archivo
+        </ion-button>
+      </div>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Comentarios Adicionales</ion-label>
+      <ion-textarea name="comentarios" [(ngModel)]="comentarios" auto-grow="true"></ion-textarea>
+    </ion-item>
+
+    <ion-button type="submit" [disabled]="!articuloForm.valid" class="centered-button">Agregar a tu colección</ion-button>
+  </form>
+</ion-content>

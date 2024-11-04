@@ -1,0 +1,14 @@
+.categoria-imagen {
+    width: 100%;
+    height: auto; 
+    object-fit: cover; 
+    border-radius: 8px; 
+  }
+  ion-card {
+    height: 450px; 
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: hidden; 
+  }
+    

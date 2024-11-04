@@ -1,0 +1,42 @@
+  
+  .centered-button {
+    width: 70%;
+    max-width: 200px;
+    margin: 0 auto;
+    display: block;
+  }
+
+ion-item {
+  margin-bottom: 10px; 
+
+  input[type="file"] {
+    margin-left: 10px; 
+  }
+}
+
+
+ion-select {
+  padding: 0; 
+}  
+
+ion-button {
+    margin-left: 10px; 
+}
+.file-input-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; 
+  width: 100%; 
+}
+
+.file-input-container span {
+  margin-right: 10px;
+  font-style: italic; 
+  color: gray; 
+}
+
+.file-input-container ion-button {
+  margin-left: auto; 
+}
+
+

@@ -1,0 +1,35 @@
+<ion-content class="ion-padding">
+  <div class="login-container">
+    <div class="logo-container">
+      <img src="assets/images/mycollelogo.png" alt="Logo MyCollection" class="logo" />
+      <h1 class="app-title">MyCollection</h1> <!-- Título agregado aquí -->
+    </div>
+    <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
+      <ion-item>
+        <ion-label position="floating">Usuario</ion-label>
+        <ion-input 
+          type="text" 
+          name="username" 
+          [(ngModel)]="username" 
+          required 
+          minlength="3" 
+          maxlength="8">
+        </ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Contraseña</ion-label>
+        <ion-input 
+          type="password" 
+          name="password" 
+          [(ngModel)]="password" 
+          required 
+          maxlength="4" 
+          pattern="[0-9]*">
+        </ion-input>
+      </ion-item>
+
+      <ion-button expand="full" type="submit" [disabled]="!loginForm.valid">Ingresar</ion-button>
+    </form>
+  </div>
+</ion-content>

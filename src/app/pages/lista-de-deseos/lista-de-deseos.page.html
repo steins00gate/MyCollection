@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Agregar Deseos</ion-title>
+    <ion-progress-bar *ngIf="cargando" type="indeterminate"></ion-progress-bar>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form (ngSubmit)="agregarDeseo()" #deseoForm="ngForm">
+
+    <!-- Campo para la categoría -->
+    <ion-item>
+      <ion-label position="floating">Categoría</ion-label>
+      <ion-select [(ngModel)]="nuevoDeseo.categoria" name="categoria" required>
+        <ion-select-option value="cartas">Cartas coleccionables</ion-select-option>
+        <ion-select-option value="figuras">Figuras</ion-select-option>
+        <ion-select-option value="libros">Libros</ion-select-option>
+        <ion-select-option value="monedas">Monedas</ion-select-option>
+        <ion-select-option value="comics">Comics</ion-select-option>
+        <ion-select-option value="videojuegos">Videojuegos</ion-select-option>
+        <ion-select-option value="consolas">Consolas</ion-select-option>
+        <ion-select-option value="autos">Autos de juguete</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Nombre del Deseo</ion-label>
+      <ion-input type="text" name="nombre" [(ngModel)]="nuevoDeseo.nombre" required></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Comentarios Adicionales</ion-label>
+      <ion-textarea name="comentarios" [(ngModel)]="nuevoDeseo.comentarios" auto-grow="true"></ion-textarea>
+    </ion-item>
+
+    <ion-button type="submit" [disabled]="!deseoForm.valid" class="centered-button">Agregar a la Lista de Deseos</ion-button>
+  </form>
+</ion-content>

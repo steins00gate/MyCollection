@@ -1,0 +1,65 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Inicio</ion-title> 
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="welcome-message">
+    <h2>Bienvenido, {{ nombreUsuario }}!</h2>
+  </div>
+
+  <h3 class="collection-summary-title">Resumen de mi colección</h3>
+
+  <ng-container *ngFor="let categoria of categorias">
+    <ion-card *ngIf="resumen[categoria.nombre] > 0">
+      <ion-card-content>
+        <ion-item>
+          <ion-thumbnail slot="start">
+            <img [src]="categoria.imagen" alt="{{ categoria.nombre }}" />
+          </ion-thumbnail>
+          <ion-label>
+            <h2>{{ categoria.nombre }}</h2>
+            <p>Cantidad: {{ resumen[categoria.nombre] }}</p>
+          </ion-label>
+        </ion-item>
+      </ion-card-content>
+    </ion-card>
+  </ng-container>
+
+  <ion-card *ngIf="articulos.length === 0">
+    <ion-card-header>
+      <ion-card-title>No hay artículos en la colección.</ion-card-title>
+    </ion-card-header>
+  </ion-card>
+
+  <h3 class="wishlist-title" style="text-align: center; margin-top: 20px;">Lista de deseos</h3>
+  
+  <ng-container *ngIf="deseos.length > 0; else noDeseos">
+    <ion-list>
+      <ion-item-sliding *ngFor="let deseo of deseos">
+        <ion-item>
+          <ion-label>
+            <h2>{{ deseo.nombre }}</h2>
+            <p>{{ deseo.comentarios }}</p>
+            <p><strong>Categoría:</strong> {{ deseo.categoria }}</p> 
+          </ion-label>
+        </ion-item>
+        <ion-item-options side="start">
+          <ion-item-option color="success" (click)="agregarDeseoAColeccion(deseo)">Agregar a colección</ion-item-option>
+        </ion-item-options>
+        <ion-item-options side="end">
+          <ion-item-option color="danger" (click)="borrarDeseo(deseo)">Eliminar</ion-item-option>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-list>
+  </ng-container>
+  
+  <ng-template #noDeseos>
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>No hay deseos en la lista.</ion-card-title>
+      </ion-card-header>
+    </ion-card>
+  </ng-template>
+</ion-content>

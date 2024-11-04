@@ -1,0 +1,32 @@
+<ion-app>
+  <ion-menu contentId="main-content" side="start" [disabled]="isLoginPage()" [attr.inert]="isLoginPage() ? true : null">
+    <ion-header>
+      <ion-toolbar>
+        <ion-title>Menú</ion-title>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content class="ion-padding">
+      <ion-list>
+        <ion-item routerLink="/home" (click)="closeMenu()">Inicio</ion-item>
+        <ion-item routerLink="/agregar-articulo" (click)="closeMenu()">Agregar Artículo</ion-item>
+        <ion-item routerLink="/categorias-coleccion" (click)="closeMenu()">Categorías de Colección</ion-item>
+        <ion-item routerLink="/lista-de-deseos" (click)="closeMenu()">Agregar Deseos</ion-item>
+        <ion-item (click)="logout()">Cerrar Sesión</ion-item>
+      </ion-list>
+    </ion-content>
+  </ion-menu>
+
+  <div class="ion-page" id="main-content">
+    <ion-header *ngIf="!isLoginPage()"> 
+      <ion-toolbar>
+        <ion-buttons slot="start" *ngIf="canOpenMenu()"> 
+          <ion-menu-button></ion-menu-button> 
+        </ion-buttons>
+        <ion-title>MyCollection</ion-title>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content class="ion-padding">
+      <router-outlet></router-outlet>
+    </ion-content>
+  </div>
+</ion-app>

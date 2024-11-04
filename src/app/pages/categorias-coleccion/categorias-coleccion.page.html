@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>categorias</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="12" size-md="6" *ngFor="let categoria of categorias">
+        <ion-card>
+          <img [src]="categoria.imagen" alt="{{ categoria.nombre }}" class="categoria-imagen"/>
+          <ion-card-header>
+            <ion-card-title>{{ categoria.nombre }}</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            {{ categoria.descripcion }}
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+
