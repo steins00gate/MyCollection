@@ -9,6 +9,38 @@
     <h2>Bienvenido, {{ nombreUsuario }}!</h2>
   </div>
 
+  <!-- Indicadores Económicos -->
+  <div class="economic-indicators">
+    <h3 class="economic-indicators-title">Indicadores Económicos</h3>
+    <ion-row class="indicators-row">
+      <ion-col size="4">
+        <ion-card>
+          <ion-card-content>
+            <h2>Dólar</h2>
+            <p>Valor: {{ indicadores.dolar?.valor || 'Cargando...' }}</p>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <ion-col size="4">
+        <ion-card>
+          <ion-card-content>
+            <h2>Euro</h2>
+            <p>Valor: {{ indicadores.euro?.valor || 'Cargando...' }}</p>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <ion-col size="4">
+        <ion-card>
+          <ion-card-content>
+            <h2>Bitcoin</h2>
+            <p>Valor: {{ indicadores.bitcoin?.valor || 'Cargando...' }}</p>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </div>
+  
+
   <h3 class="collection-summary-title">Resumen de mi colección</h3>
 
   <ng-container *ngFor="let categoria of categorias">

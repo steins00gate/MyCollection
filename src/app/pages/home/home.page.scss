@@ -16,3 +16,29 @@ ion-card {
     margin: 10px 0; 
     font-weight: bold; 
   }
+  .economic-indicators-title {
+    text-align: center;
+    margin-bottom: 20px; /* Opcional: para añadir algo de separación */
+  }
+
+  .indicators-row {
+    display: flex;
+    justify-content: space-around; /* Espaciado uniforme entre columnas */
+    align-items: center; /* Centrar verticalmente el contenido */
+    text-align: center; /* Centrar el contenido dentro de cada columna */
+    margin: 20px 0; /* Separación arriba y abajo */
+  }
+  
+  ion-card {
+    margin: 0 auto; /* Centrar las tarjetas si son más pequeñas */
+    width: 90%; /* Ajusta el ancho si es necesario */
+  }
+  
+  h2 {
+    font-size: 18px; /* Ajusta el tamaño del título si quieres */
+  }
+  
+  p {
+    font-size: 14px; /* Ajusta el tamaño del texto */
+  }
+  

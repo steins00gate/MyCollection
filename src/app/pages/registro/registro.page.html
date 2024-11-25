@@ -1,0 +1,67 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Registro</ion-title>
+    <ion-progress-bar *ngIf="cargando" type="indeterminate"></ion-progress-bar>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form (ngSubmit)="guardar()" #registroForm="ngForm">
+
+    <!-- Campo para el Nombre de Usuario -->
+    <ion-item>
+      <ion-label position="floating">Nombre de Usuario</ion-label>
+      <ion-input 
+        type="text" 
+        name="usuario" 
+        [(ngModel)]="usuario" 
+        required 
+        minlength="3" 
+        maxlength="8">
+      </ion-input>
+    </ion-item>
+
+    <!-- Campo para la Contraseña -->
+    <ion-item>
+      <ion-label position="floating">Contraseña</ion-label>
+      <ion-input 
+        type="password" 
+        name="password" 
+        [(ngModel)]="password" 
+        required 
+        minlength="4" 
+        maxlength="4">
+      </ion-input>
+    </ion-item>
+
+    <!-- Campo para el Nombre Completo -->
+    <ion-item>
+      <ion-label position="floating">Nombre Completo</ion-label>
+      <ion-input 
+        type="text" 
+        name="nombre" 
+        [(ngModel)]="nombre" 
+        required>
+      </ion-input>
+    </ion-item>
+
+    <!-- Campo para el Correo Electrónico -->
+    <ion-item>
+      <ion-label position="floating">Correo Electrónico</ion-label>
+      <ion-input 
+        type="email" 
+        name="email" 
+        [(ngModel)]="email" 
+        required>
+      </ion-input>
+    </ion-item>
+
+    <ion-button 
+      type="submit" 
+      [disabled]="!registroForm.valid" 
+      class="centered-button">
+      Registrar
+    </ion-button>
+  </form>
+</ion-content>
+

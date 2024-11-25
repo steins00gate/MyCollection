@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ApiService } from '../../services/api.service'; // Asegúrate de que esta ruta sea correcta
 
 interface Articulo {
   categoria: string;
@@ -18,8 +19,9 @@ export class HomePage {
   resumen: { [key: string]: number } = {};
   nombreUsuario: string = '';
   deseos: { nombre: string; comentarios: string; categoria: string }[] = [];
+  indicadores: { dolar?: { valor: number }; euro?: { valor: number }; bitcoin?: { valor: number } } = {};
 
-  constructor() {
+  constructor(private apiService: ApiService) {
     this.categorias = [
       { nombre: 'Cartas coleccionables', imagen: 'assets/images/cartas.jpg' },
       { nombre: 'Figuras', imagen: 'assets/images/figuras.jpg' },
@@ -28,15 +30,17 @@ export class HomePage {
       { nombre: 'Comics', imagen: 'assets/images/comics.jpg' },
       { nombre: 'Videojuegos', imagen: 'assets/images/videojuegos.jpg' },
       { nombre: 'Consolas', imagen: 'assets/images/consolas.jpg' },
-      { nombre: 'Autos de juguete', imagen: 'assets/images/autos.jpg' }
+      { nombre: 'Autos de juguete', imagen: 'assets/images/autos.jpg' },
     ];
 
     this.nombreUsuario = sessionStorage.getItem('nombreUsuario') || 'Usuario';
-    this.deseos = JSON.parse(sessionStorage.getItem('listaDeseos') || '[]'); 
+    this.deseos = JSON.parse(sessionStorage.getItem('listaDeseos') || '[]');
   }
 
   ngOnInit() {
+    this.nombreUsuario = localStorage.getItem('usuario') || 'Usuario';
     this.cargarArticulos();
+    this.cargarIndicadores(); // Cargar indicadores económicos
   }
 
   cargarArticulos() {
@@ -45,7 +49,7 @@ export class HomePage {
 
     this.resumen = {};
 
-    this.articulos.forEach(articulo => {
+    this.articulos.forEach((articulo) => {
       if (this.resumen[articulo.categoria]) {
         this.resumen[articulo.categoria]++;
       } else {
@@ -54,8 +58,22 @@ export class HomePage {
     });
   }
 
+  cargarIndicadores() {
+    this.apiService.getIndicadores().subscribe(
+      (data) => {
+        this.indicadores.dolar = data.dolar;
+        this.indicadores.euro = data.euro;
+        this.indicadores.bitcoin = data.bitcoin;
+      },
+      (error) => {
+        console.error('Error al cargar los indicadores económicos:', error);
+      }
+    );
+  }
+  
+
   borrarDeseo(deseo: { nombre: string; comentarios: string; categoria: string }) {
-    this.deseos = this.deseos.filter(d => d !== deseo);
+    this.deseos = this.deseos.filter((d) => d !== deseo);
     this.guardarDeseos();
   }
 
@@ -64,30 +82,28 @@ export class HomePage {
       nombre: deseo.nombre,
       comentarios: deseo.comentarios,
       categoria: deseo.categoria,
-      imagen: null
+      imagen: null,
     };
-  
+
     this.articulos.push(nuevoArticulo);
     sessionStorage.setItem('articulos', JSON.stringify(this.articulos));
-  
+
     this.actualizarResumen(nuevoArticulo.categoria);
-  
+
     this.borrarDeseo(deseo);
-  
-    this.cargarArticulos(); 
+
+    this.cargarArticulos();
   }
-  
 
   actualizarResumen(categoria: string) {
     categoria = categoria.charAt(0).toUpperCase() + categoria.slice(1);
-  
+
     if (this.resumen[categoria]) {
       this.resumen[categoria]++;
     } else {
       this.resumen[categoria] = 1;
     }
   }
-  
 
   guardarDeseos() {
     sessionStorage.setItem('listaDeseos', JSON.stringify(this.deseos));

@@ -30,12 +30,13 @@ export class AppComponent {
     });
   }
 
-  isLoginPage(): boolean {
-    return this.router.url === '/login';
+  isRestrictedPage(): boolean {
+    const restrictedRoutes = ['/login', '/registro']; // Agregar rutas donde el menú debe estar deshabilitado
+    return restrictedRoutes.includes(this.router.url);
   }
 
   canOpenMenu(): boolean {
-    return !this.isLoginPage(); 
+    return !this.isRestrictedPage(); 
   }
 }
 

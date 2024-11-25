@@ -4,13 +4,13 @@
       <img src="assets/images/mycollelogo.png" alt="Logo MyCollection" class="logo" />
       <h1 class="app-title">MyCollection</h1> <!-- Título agregado aquí -->
     </div>
-    <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
+    <form (ngSubmit)="login()" #loginForm="ngForm">
       <ion-item>
         <ion-label position="floating">Usuario</ion-label>
         <ion-input 
           type="text" 
-          name="username" 
-          [(ngModel)]="username" 
+          name="usuario" 
+          [(ngModel)]="usuario" 
           required 
           minlength="3" 
           maxlength="8">
@@ -24,12 +24,15 @@
           name="password" 
           [(ngModel)]="password" 
           required 
-          maxlength="4" 
-          pattern="[0-9]*">
+          maxlength="4">
         </ion-input>
       </ion-item>
 
       <ion-button expand="full" type="submit" [disabled]="!loginForm.valid">Ingresar</ion-button>
     </form>
+    <div class="register-container">
+      <p>¿No tienes una cuenta?</p>
+      <ion-button expand="full" fill="outline" (click)="registro()">Registrarse</ion-button>
+    </div>
   </div>
 </ion-content>

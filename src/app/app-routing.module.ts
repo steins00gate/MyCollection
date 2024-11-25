@@ -27,6 +27,18 @@ const routes: Routes = [
     path: 'lista-de-deseos',
     loadChildren: () => import('./pages/lista-de-deseos/lista-de-deseos.module').then( m => m.ListaDeDeseosPageModule)
   },
+  {
+    path: 'registro',
+    loadChildren: () => import('./pages/registro/registro.module').then( m => m.RegistroPageModule)
+  },
+  {
+    path: 'camara',
+    loadChildren: () => import('./pages/camara/camara.module').then( m => m.CamaraPageModule)
+  },
+  {
+    path: 'map',
+    loadChildren: () => import('./pages/map/map.module').then( m => m.MapPageModule)
+  },
 ];
 
 @NgModule({
