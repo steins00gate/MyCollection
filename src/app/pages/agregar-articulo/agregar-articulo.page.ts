@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { ToastController, AlertController } from '@ionic/angular'; 
+import { AlertController } from '@ionic/angular';
+import { DataService } from 'src/app/services/data.service';
 
 @Component({
   selector: 'app-agregar-articulo',
@@ -13,52 +14,68 @@ export class AgregarArticuloPage {
   comentarios: string = '';
   imagen: File | null = null;
   cargando: boolean = false;
-  agregadoConExito: boolean = false;
+  formularioVisible: boolean = true;  // Mantener el formulario visible
 
-  constructor(private router: Router, private alertController: AlertController) {} 
+  constructor(
+    private router: Router,
+    private alertController: AlertController,
+    private dataService: DataService // Usamos el DataService
+  ) {}
 
   async onSubmit() {
     this.cargando = true;
 
+    // Crear el objeto del artículo
     const articulo = {
-      categoria: this.categoria.charAt(0).toUpperCase() + this.categoria.slice(1),
       nombre: this.nombre,
+      categoria: this.categoria.charAt(0).toUpperCase() + this.categoria.slice(1), // Capitalizar la categoría
       comentarios: this.comentarios,
-      imagen: this.imagen,
+      imagen: this.imagen ? this.imagen : null, // Asumimos que los deseos no tienen imagen
     };
 
-    const articulos = JSON.parse(sessionStorage.getItem('articulos') || '[]');
-    articulos.push(articulo);
-    sessionStorage.setItem('articulos', JSON.stringify(articulos));
+    // Usamos el servicio para agregar el artículo a la base de datos
+    const success = await this.dataService.addArticulo(articulo.nombre, articulo.categoria, articulo.comentarios, articulo.imagen);
 
     setTimeout(async () => {
       this.cargando = false;
 
-      const alert = await this.alertController.create({
-        header: 'Éxito',
-        message: 'Producto agregado con éxito',
-        buttons: [
-          {
-            text: 'Cerrar',
-            role: 'cancel',
-            handler: () => {
-              this.limpiarFormulario();
+      // Mostrar alerta si el artículo se agregó con éxito
+      if (success) {
+        const alert = await this.alertController.create({
+          header: 'Éxito',
+          message: 'Producto agregado con éxito',
+          buttons: [
+            {
+              text: 'Cerrar',
+              role: 'cancel',
+              handler: () => {
+                this.limpiarFormulario();
+                // Aquí no cambiamos la visibilidad del formulario
+              },
             },
-          },
-        ],
-      });
+          ],
+        });
 
-      await alert.present();
-    }, 2000); 
-}
-  
+        await alert.present();
+      } else {
+        // Si hubo algún error, mostramos un mensaje de error
+        const alert = await this.alertController.create({
+          header: 'Error',
+          message: 'Hubo un problema al agregar el producto.',
+          buttons: ['OK'],
+        });
+
+        await alert.present();
+      }
+    }, 2000); // Simulamos un tiempo de carga de 2 segundos
+  }
+
   limpiarFormulario() {
     this.categoria = '';
     this.nombre = '';
     this.comentarios = '';
     this.imagen = null;
   }
-  
 
   onFileSelected(event: Event) {
     const input = event.target as HTMLInputElement;

@@ -6,8 +6,9 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-  <form (ngSubmit)="onSubmit()" #articuloForm="ngForm" *ngIf="!agregadoConExito">
-
+  <!-- Formulario visible solo si formularioVisible es verdadero -->
+  <form *ngIf="formularioVisible" (ngSubmit)="onSubmit()" #articuloForm="ngForm">
+    
     <ion-item>
       <ion-label position="floating">Categoría</ion-label>
       <ion-select [(ngModel)]="categoria" name="categoria" required>
@@ -30,7 +31,7 @@
     <ion-item>
       <ion-label position="floating">Adjuntar Imagen</ion-label>
       <div class="file-input-container">
-        <input type="file" (change)="onFileSelected($event)" #inputFile style="display: none;" (change)="onFileSelected($event)">
+        <input type="file" (change)="onFileSelected($event)" #inputFile style="display: none;">
         <span *ngIf="imagen">{{ imagen.name }}</span> <!-- Muestra el nombre del archivo -->
         <ion-button fill="outline" (click)="inputFile.click()" slot="end">
           Elegir Archivo
@@ -43,6 +44,21 @@
       <ion-textarea name="comentarios" [(ngModel)]="comentarios" auto-grow="true"></ion-textarea>
     </ion-item>
 
-    <ion-button type="submit" [disabled]="!articuloForm.valid" class="centered-button">Agregar a tu colección</ion-button>
+    <ion-button type="submit" [disabled]="!articuloForm.valid" class="centered-button">
+      Agregar a tu colección
+    </ion-button>
   </form>
+
+  <!-- Eliminar esta sección para que no aparezca el mensaje de éxito y el botón -->
+  <!-- <div *ngIf="!formularioVisible">
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>¡Producto agregado con éxito!</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        El artículo ha sido agregado a tu colección.
+      </ion-card-content>
+      <ion-button (click)="irAInicio()">Ir a Inicio</ion-button>
+    </ion-card>
+  </div> -->
 </ion-content>
