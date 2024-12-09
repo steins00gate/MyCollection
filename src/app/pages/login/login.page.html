@@ -28,8 +28,11 @@
         </ion-input>
       </ion-item>
 
+      <!-- Asegurarse de que el botón esté habilitado solo si el formulario es válido -->
       <ion-button expand="full" type="submit" [disabled]="!loginForm.valid">Ingresar</ion-button>
     </form>
+
+    <!-- Botón de registro -->
     <div class="register-container">
       <p>¿No tienes una cuenta?</p>
       <ion-button expand="full" fill="outline" (click)="registro()">Registrarse</ion-button>
